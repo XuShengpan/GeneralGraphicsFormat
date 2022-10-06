@@ -10,11 +10,11 @@ A general graphics format for hd-map.
 6.	要素以表（table）为单元单独存储，每个表中的要素具有相同的类型和数据结构，每个表有表名，同一类要素的表名不重复；
 7.	每类要素可以有多个table；
 8.	一个table包括fields_info和data两部分信息
-1)	fields info定义与PCL相兼容
-2)	data包含三部分内容，依次分别为属性（fields）,几何（geometry）和描述（description）
-    - fields部分按fields_info的定义依次存储
-    - geometry部分为geometry_size（包含的点个数）和 id_list，其中points和lines的geometry_size省略不写
-    - description 为字符串，description可以为空，description用大括号括起来；
+    1) fields info定义与PCL相兼容
+    2) data包含三部分内容，依次分别为属性（fields）,几何（geometry）和描述（description）
+       - fields部分按fields_info的定义依次存储
+       - geometry部分为geometry_size（包含的点个数）和 id_list，其中points和lines的geometry_size省略不写
+       - description 为字符串，description可以为空，description用大括号括起来；
 9.	信息以行为单位存储，每一行前面都有ID号，以方便人工读取，同时在读取中用于验证；
 10.	字段间以空格分隔；
 11.	允许出现空行；
