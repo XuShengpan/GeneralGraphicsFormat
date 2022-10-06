@@ -1,7 +1,8 @@
 # GeneralGraphicsFormat
 A general graphics format for hd-map.
 
-设计原则：
+
+# 设计原则：
 1.	本文件面向高精地图矢量数据的表达，包括读写和存储；
 2.	图形文件包括四大类，点（points）、线段（lines）、多线段（polylines）、多边形（polygons）；
 3.	四大类要素通过点ID展示其几何结构（geometry），所用到的点用一个点列表(points_list)单独存储；
@@ -21,7 +22,6 @@ A general graphics format for hd-map.
 12.	允许写注释，注释只能以整行形式存在，注释以 #开头；
 13.	支持的数据类型  
     ![image](https://user-images.githubusercontent.com/40223484/194245636-81c3be6c-0530-4f09-9dcd-3b4377242f54.png)
-
 14.	文件后缀：ghs；
 15.	Magic Number: GeneralGraphicFormat
 
