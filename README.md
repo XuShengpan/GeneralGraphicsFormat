@@ -21,7 +21,9 @@ A general graphics format for hd-map.
 11.	允许出现空行；
 12.	允许写注释，注释只能以整行形式存在，注释以 #开头；
 13.	支持的数据类型  
-    ![image](https://user-images.githubusercontent.com/40223484/194245636-81c3be6c-0530-4f09-9dcd-3b4377242f54.png)
+    type_name	char	uchar	ushort	short	int	  uint	float	double
+    length	     1	      1	      2	      2	     4	   4	  4	      8
+![image](https://user-images.githubusercontent.com/40223484/194247274-532eda8d-c6ac-49dd-aef8-f591fd70d1fb.png)
 14.	文件后缀：ghs；
 15.	Magic Number: GeneralGraphicFormat
 
