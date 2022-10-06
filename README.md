@@ -20,7 +20,7 @@ A general graphics format for hd-map.
 10.	字段间以空格分隔；
 11.	允许出现空行；
 12.	允许写注释，注释只能以整行形式存在，注释以 #开头；
-13.	支持的数据类型 
+13.	支持的数据类型  
 ![image](https://user-images.githubusercontent.com/40223484/194247274-532eda8d-c6ac-49dd-aef8-f591fd70d1fb.png)
 14.	文件后缀：ghs；
 15.	Magic Number: GeneralGraphicFormat
