@@ -1,0 +1,44 @@
+GeneralGraphicFormat
+#author: xu shengpan
+#date: 2022/8/27
+#a example file
+
+point_list SRCS 14
+0   0   0   0
+1  10  0   0
+2  20  0   0
+3  50  0   0
+4  100  0   0
+5  0    20  0
+6  0    50  0
+7  0    100  0
+8  0    0  30
+9  0    0  50
+10  0    0  100
+11  100   100  100
+12  50  50  50
+13  80  80  0
+
+points Vertices
+fields_info   1
+0  type   uint32
+data  2
+0   0    0     {origin}
+1   0    12    {some point}
+
+lines Axis
+fields_info 1
+0  label  uint32
+data 3
+0  1   0   4     {x_axis}
+1  1   0   7     {y_axis}
+2  1   0   10   {z_axis}
+
+polygons a_polygon_example
+fields_info   1
+0   type   uint32
+data 1
+0   2   4  2  6  9  13  {a polygon with 4 points}
+
+
+
