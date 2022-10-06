@@ -27,7 +27,7 @@ A general graphics format for hd-map.
 
 
 # 样例文件
-///
+```
 GeneralGraphicFormat
 #author: xu shengpan
 #date: 2022/8/27
@@ -69,4 +69,6 @@ fields_info   1
 0   type   uint32
 data 1
 0 2 3 2 6 7  {a polygon with 3 points}
-///
+
+
+```
