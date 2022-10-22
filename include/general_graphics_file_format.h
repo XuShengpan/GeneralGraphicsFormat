@@ -32,7 +32,7 @@ namespace general_graphics_file_ns {
         return strm.str();
     }
 
-    static int get_field_type_count(const FieldType& type)
+    static inline int get_field_type_size(const FieldType& type)
     {
         switch (type) {
         case INT8:
@@ -74,7 +74,7 @@ namespace general_graphics_file_ns {
         return "";
     }
 
-    static FieldType get_field_type_from_string(const std::string& types_string)
+    static inline FieldType get_field_type_from_string(const std::string& types_string)
     {
         if (types_string == "int8")
             return INT8;
@@ -107,7 +107,30 @@ namespace general_graphics_file_ns {
         int offset;
     };
 
-    using FieldsInfo = std::vector<Field>;
+    class FieldsInfo : public std::vector<Field>
+    {
+    public:
+        FieldsInfo() {}
+
+        void push_back(const std::string& name, FieldType data_type)
+        {
+            Field field;
+            field.name = name;
+            field.datatype = data_type;
+            field.offset = _offset;
+            std::vector<Field>::push_back(field);
+
+            _offset += get_field_type_size(data_type);
+        }
+
+        int length() const
+        {
+            return _offset;
+        }
+
+    private:
+        int _offset = 0;
+    };
 
     template<typename REAL>
     struct PointType
@@ -133,7 +156,7 @@ namespace general_graphics_file_ns {
             return data[i];
         }
 
-        PointType() {}
+        PointType():x(0),y(0),z(0) {}
         PointType(REAL x1, REAL y1, REAL z1): x(x1), y(y1), z(z1) {}
     };
 
@@ -190,13 +213,7 @@ namespace general_graphics_file_ns {
     public:
         FeatureTable(const FieldsInfo& fields): _fields_info(fields)
         {
-            int w = 0;
-            for (int i = 0; i < fields.size(); ++i) {
-                 _fields_info[i].offset = w;  //correct for offset
-                w += get_field_type_count(fields[i].datatype);
-                _field_index[fields[i].name] = i;
-            }
-            _width = w;
+            _width = fields.length();
         }
 
         ~FeatureTable()
@@ -313,7 +330,7 @@ namespace general_graphics_file_ns {
         std::vector<std::string> _descriptions;
 
     public:
-        GraphicsTable(const std::vector<Field>& fields) : _features(new FeatureTable(fields))
+        GraphicsTable(const FieldsInfo& info) : _features(new FeatureTable(info))
         {
         }
 
@@ -445,7 +462,7 @@ namespace general_graphics_file_ns {
     struct GeneralGraphicContentData
     {
         std::vector<PointType<REAL> > coords;
-        CoordniateType coordinate_type;
+        CoordniateType coordinate_type = CT_SpatialRectangleCoordinateSystem;
 
         std::map<std::string, PointsTablePtr> points_tables;
         std::map<std::string, LinesTablePtr> lines_tables;

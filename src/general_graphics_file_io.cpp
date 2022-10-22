@@ -74,9 +74,10 @@ namespace general_graphics_file_ns {
             PointsTablePtr table = iter.second;
             if(table->size() == 0)
                 continue;
+            const auto table_name = iter.first;
             const auto feature_table = table->get_feature_table();
             const auto fields_info = feature_table->get_fields_info();
-            ofile << "points " << table->get_table_name() << "\n"
+            ofile << "points " << table_name << "\n"
                 << "fields_info " << fields_info.size() << std::endl;
 
             //save fields info
@@ -189,7 +190,7 @@ namespace general_graphics_file_ns {
         ofile.close();
     }
 
-    bool read_fieldsinfo(std::ifstream& infile, FieldsInfo& info, int& w)
+    bool read_fieldsinfo(std::ifstream& infile, FieldsInfo& info)
     {
         info.clear();
         std::string key;
@@ -202,25 +203,17 @@ namespace general_graphics_file_ns {
         std::string line;
         int id;
         std::string name, data_type;
-        int offset = 0;
-        Field field;
         for (int i = 0; i < n; ++i) {
             if (!read_line(infile, line))
                 return false;
             std::stringstream ss(line);
             ss >> id >> name >> data_type;
-            field.name = name;
-            field.datatype = get_field_type_from_string(data_type);
-            field.offset = offset;
-            offset += get_field_type_count(field.datatype);
-
-            info.push_back(field);
+            info.push_back(name, get_field_type_from_string(data_type));
         }
         if (info.size() != n) {
             std::cout << "Error: wong fields info, size contradictory !" << std::endl;
             return false;
         }
-        w = offset;
         return true;
     }
 
@@ -307,8 +300,7 @@ namespace general_graphics_file_ns {
     {
         typename GraphicsTable<GeometryType>::Ptr table;
         FieldsInfo info;
-        int w;
-        if (!read_fieldsinfo(infile, info, w)) {
+        if (!read_fieldsinfo(infile, info)) {
             return table;
         }
 
@@ -337,7 +329,7 @@ namespace general_graphics_file_ns {
         int id;
         for (int i = 0; i < n; ++i) {
             infile >> id;
-            ItemFeatureData item_feature(w);
+            ItemFeatureData item_feature(info.length());
             read_item_feature_data(infile, info, item_feature);
 
             GeometryType v;
