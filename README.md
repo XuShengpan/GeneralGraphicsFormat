@@ -6,7 +6,7 @@ A general graphics format for hd-map.
 1.	本文件面向高精地图矢量数据的表达，包括读写和存储；
 2.	图形文件包括四大类，点（points）、线段（lines）、多线段（polylines）、多边形（polygons）；
 3.	四大类要素通过点ID展示其几何结构（geometry），所用到的点用一个点列表(points_list)单独存储；
-4.	点可以为空间直角坐标系（Spatial Rectangular Coordinate System，SRCS，分别给定XYZ）或WGS84坐标系（分别给定经纬高，deg, deg, meter）；
+4.	点可以为空间直角坐标系（Spatial Rectangular Coordinate System，SRCS，分别给定XYZ）或WGS84坐标系（WGS84，分别给定经纬高，deg, deg, meter）；
 5.	当坐标系为WGS84时，要素的显示将转换到以第一个点所对应的ENU坐标系下显示；
 6.	要素以表（table）为单元单独存储，每个表中的要素具有相同的类型和数据结构，每个表有表名，同一类要素的表名不重复；
 7.	每类要素可以有多个table；
