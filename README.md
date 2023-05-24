@@ -31,7 +31,7 @@ A general graphics format for hd-map.
 GeneralGraphicFormat
 #author: xu shengpan
 #date: 2022/8/27
-#a example file
+#an example file
 
 point_list SRCS 14
 0   0   0   0
