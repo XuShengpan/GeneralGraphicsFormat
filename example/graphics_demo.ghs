@@ -1,149 +1,187 @@
 {
-    "Nodes": [
+    "children": [
         {
-            "Name": "Test Graphics",
-            "OBJs": [
+            "children": [],
+            "geometries": [
                 {
-                    "Geometries": [
+                    "alpha_enable": false,
+                    "color": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ],
+                    "dash": false,
+                    "line_width": 3,
+                    "name": "X-Axis",
+                    "points": [
                         {
-                            "Lines": {
-                                "Color": [
-                                    255,
-                                    0,
-                                    0,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        -1.0,
-                                        0.0,
-                                        0.0
-                                    ],
-                                    [
-                                        10.0,
-                                        0.0,
-                                        0.0
-                                    ]
-                                ],
-                                "Dash": false,
-                                "LineWidth": 3,
-                                "Name": "X-Axis"
-                            }
+                            "x": -1.0,
+                            "y": 0.0,
+                            "z": 0.0
                         },
                         {
-                            "Lines": {
-                                "Color": [
-                                    0,
-                                    255,
-                                    0,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        0.0,
-                                        -1.0,
-                                        0.0
-                                    ],
-                                    [
-                                        0.0,
-                                        10.0,
-                                        0.0
-                                    ]
-                                ],
-                                "Dash": false,
-                                "LineWidth": 3,
-                                "Name": "Y-Axis"
-                            }
-                        },
-                        {
-                            "Lines": {
-                                "Color": [
-                                    0,
-                                    0,
-                                    255,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        0.0,
-                                        0.0,
-                                        -1.0
-                                    ],
-                                    [
-                                        0.0,
-                                        0.0,
-                                        10.0
-                                    ]
-                                ],
-                                "Dash": false,
-                                "LineWidth": 3,
-                                "Name": "Z-Axis"
-                            }
+                            "x": 10.0,
+                            "y": 0.0,
+                            "z": 0.0
                         }
                     ],
-                    "Name": "Coordinate System"
+                    "type": 1
                 },
                 {
-                    "Geometries": [
+                    "alpha_enable": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ],
+                    "dash": false,
+                    "line_width": 3,
+                    "name": "Y-Axis",
+                    "points": [
                         {
-                            "Triangles": {
-                                "BackFaceMode": 1,
-                                "Color": [
-                                    255,
-                                    255,
-                                    255,
-                                    20
-                                ],
-                                "Coordinates": [
-                                    [
-                                        -0.5,
-                                        0.0,
-                                        -0.30000001192092896
-                                    ],
-                                    [
-                                        2.0,
-                                        -2.0,
-                                        0.0
-                                    ],
-                                    [
-                                        6.0,
-                                        5.0,
-                                        1.0
-                                    ]
-                                ],
-                                "FrontFaceMode": 2,
-                                "Name": "Triangle"
-                            }
+                            "x": 0.0,
+                            "y": -1.0,
+                            "z": 0.0
                         },
                         {
-                            "Lines": {
-                                "Color": [
-                                    0,
-                                    255,
-                                    255,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        2.579272508621216,
-                                        1.0251351594924927,
-                                        -0.25970226526260376
-                                    ],
-                                    [
-                                        2.0243656635284424,
-                                        0.8491891026496887,
-                                        3.19154691696167
-                                    ]
-                                ],
-                                "Dash": true,
-                                "LineWidth": 1,
-                                "Name": "Triangle Normal"
-                            }
+                            "x": 0.0,
+                            "y": 10.0,
+                            "z": 0.0
                         }
                     ],
-                    "Name": "TriangleObj"
+                    "type": 1
+                },
+                {
+                    "alpha_enable": false,
+                    "color": [
+                        0,
+                        0,
+                        255,
+                        255
+                    ],
+                    "dash": false,
+                    "line_width": 3,
+                    "name": "Z-Axis",
+                    "points": [
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": -1.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 10.0
+                        }
+                    ],
+                    "type": 1
                 }
-            ]
+            ],
+            "name": "Coordinate System",
+            "transformation": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            }
+        },
+        {
+            "children": [],
+            "geometries": [
+                {
+                    "alpha_enable": false,
+                    "back_mode": 1,
+                    "color": [
+                        255,
+                        255,
+                        255,
+                        20
+                    ],
+                    "front_mode": 2,
+                    "name": "Triangle Shape",
+                    "points": [
+                        {
+                            "x": -0.5,
+                            "y": 0.0,
+                            "z": -0.30000001192092896
+                        },
+                        {
+                            "x": 2.0,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 6.0,
+                            "y": 5.0,
+                            "z": 1.0
+                        }
+                    ],
+                    "type": 2
+                },
+                {
+                    "alpha_enable": false,
+                    "color": [
+                        0,
+                        255,
+                        255,
+                        255
+                    ],
+                    "dash": true,
+                    "line_width": 1,
+                    "name": "Triangle Normal",
+                    "points": [
+                        {
+                            "x": 2.579272508621216,
+                            "y": 1.0251351594924927,
+                            "z": -0.25970226526260376
+                        },
+                        {
+                            "x": 2.0243656635284424,
+                            "y": 0.8491891026496887,
+                            "z": 3.19154691696167
+                        }
+                    ],
+                    "type": 1
+                }
+            ],
+            "name": "Triangle",
+            "transformation": {
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            }
         }
-    ]
+    ],
+    "geometries": [],
+    "name": "Graphics Node",
+    "transformation": {
+        "rotation": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "translation": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    }
 }

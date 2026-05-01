@@ -27,7 +27,7 @@ int main()
 	Eigen::Vector3d pn1 = pn0 - n * 0.5;
 	Eigen::Vector3d pn2 = pn0 + n * 3.0;
 
-	std::shared_ptr< pcd_viewer_ns::Lines> x_axis(new pcd_viewer_ns::Lines());
+	std::shared_ptr<pcd_viewer_ns::Lines> x_axis(new pcd_viewer_ns::Lines());
 	x_axis->setColor(255, 0, 0);
 	x_axis->line_width = 3;
 	x_axis->name = "X-Axis";
@@ -66,9 +66,15 @@ int main()
 	z_axis->points[1][1] = ptz1[1];
 	z_axis->points[1][2] = ptz1[2];
 
+	std::shared_ptr<pcd_viewer_ns::GraphicsNode> cs = std::make_shared<pcd_viewer_ns::GraphicsNode>();
+	cs->name = "Coordinate System";
+	cs->geomtries.push_back(x_axis);
+	cs->geomtries.push_back(y_axis);
+	cs->geomtries.push_back(z_axis);
+
 	std::shared_ptr<pcd_viewer_ns::Triangles> triangle(new pcd_viewer_ns::Triangles());
 	triangle->setColor(255, 255, 255, 20);
-	triangle->name = "Triangle";
+	triangle->name = "Triangle Shape";
 	triangle->mode.frontMode = pcd_viewer_ns::PolygonMode::Fill;
 	triangle->mode.backMode = pcd_viewer_ns::PolygonMode::Line;
 	triangle->points.resize(3);
@@ -98,27 +104,17 @@ int main()
 	normal->points[1][1] = pn2[1];
 	normal->points[1][2] = pn2[2];
 
-	pcd_viewer_ns::GraphicsData data;
-	pcd_viewer_ns::NodePtr root(new pcd_viewer_ns::Node());
-	root->name = "Test Graphics";
+	pcd_viewer_ns::GraphicsNodePtr tri_node = std::make_shared<pcd_viewer_ns::GraphicsNode>();
+	tri_node->name = "Triangle";
+	tri_node->geomtries.push_back(triangle);
+	tri_node->geomtries.push_back(normal);
 
-	pcd_viewer_ns::OBJPtr   csObj(new pcd_viewer_ns::OBJ());
-	csObj->name = "Coordinate System";
-	csObj->geomtries.push_back(x_axis);
-	csObj->geomtries.push_back(y_axis);
-	csObj->geomtries.push_back(z_axis);
+	pcd_viewer_ns::GraphicsNodePtr root = std::make_shared<pcd_viewer_ns::GraphicsNode>();
+	root->name = "Graphics Node";
+	root->children.push_back(cs);
+	root->children.push_back(tri_node);
 
-	root->objs.push_back(csObj);
-
-	pcd_viewer_ns::OBJPtr triObj(new pcd_viewer_ns::OBJ());
-	triObj->name = "TriangleObj";
-	triObj->geomtries.push_back(triangle);
-	triObj->geomtries.push_back(normal);
-	root->objs.push_back(triObj);
-
-	data.nodes.push_back(root);
-
-	pcd_viewer_ns::save_graphics_data(data, "graphics_demo.ghs");
+	pcd_viewer_ns::save_graphics_data(root, "graphics_demo.ghs");
 
 	return 0;
 
