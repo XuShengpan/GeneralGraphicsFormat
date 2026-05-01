@@ -1,157 +1,51 @@
 # 核心原则
-基于Node-OBJ-Geometry组织数据。Node是一个绘制场景，包含一组待绘制物体（OBJ），每一个待绘制物体由若干图元（Geometry）组成，图元是基本的绘制图形，包括点（Points）、线段（Lines）、多线段（Polyline）、三角形（Triangles）、平面多边形（Polygon）。
-图元包含顶点、颜色等属性。
+PCDViewer 5.4.0 基于图元（Geomtry）和节点（Node）组织场景数据，通过节点构成树形结构，各节点可以有自己的名称（Name）和位姿（Transformation），以实现丰富的场景表示。
 
-# 样例文件
-例如，绘制一个坐标系，里面有一个三角形
-```
-{
-    "Nodes": [
-        {
-            "Name": "Test Graphics",
-            "OBJs": [
-                {
-                    "Geometries": [
-                        {
-                            "Lines": {
-                                "Color": [
-                                    255,
-                                    0,
-                                    0,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        -1.0,
-                                        0.0,
-                                        0.0
-                                    ],
-                                    [
-                                        10.0,
-                                        0.0,
-                                        0.0
-                                    ]
-                                ],
-                                "Dash": false,
-                                "LineWidth": 3,
-                                "Name": "X-Axis"
-                            }
-                        },
-                        {
-                            "Lines": {
-                                "Color": [
-                                    0,
-                                    255,
-                                    0,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        0.0,
-                                        -1.0,
-                                        0.0
-                                    ],
-                                    [
-                                        0.0,
-                                        10.0,
-                                        0.0
-                                    ]
-                                ],
-                                "Dash": false,
-                                "LineWidth": 3,
-                                "Name": "Y-Axis"
-                            }
-                        },
-                        {
-                            "Lines": {
-                                "Color": [
-                                    0,
-                                    0,
-                                    255,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        0.0,
-                                        0.0,
-                                        -1.0
-                                    ],
-                                    [
-                                        0.0,
-                                        0.0,
-                                        10.0
-                                    ]
-                                ],
-                                "Dash": false,
-                                "LineWidth": 3,
-                                "Name": "Z-Axis"
-                            }
-                        }
-                    ],
-                    "Name": "Coordinate System"
-                },
-                {
-                    "Geometries": [
-                        {
-                            "Triangles": {
-                                "BackFaceMode": 1,
-                                "Color": [
-                                    255,
-                                    255,
-                                    255,
-                                    20
-                                ],
-                                "Coordinates": [
-                                    [
-                                        -0.5,
-                                        0.0,
-                                        -0.30000001192092896
-                                    ],
-                                    [
-                                        2.0,
-                                        -2.0,
-                                        0.0
-                                    ],
-                                    [
-                                        6.0,
-                                        5.0,
-                                        1.0
-                                    ]
-                                ],
-                                "FrontFaceMode": 2,
-                                "Name": "Triangle"
-                            }
-                        },
-                        {
-                            "Lines": {
-                                "Color": [
-                                    0,
-                                    255,
-                                    255,
-                                    255
-                                ],
-                                "Coordinates": [
-                                    [
-                                        2.579272508621216,
-                                        1.0251351594924927,
-                                        -0.25970226526260376
-                                    ],
-                                    [
-                                        2.0243656635284424,
-                                        0.8491891026496887,
-                                        3.19154691696167
-                                    ]
-                                ],
-                                "Dash": true,
-                                "LineWidth": 1,
-                                "Name": "Triangle Normal"
-                            }
-                        }
-                    ],
-                    "Name": "TriangleObj"
-                }
-            ]
-        }
-    ]
-}
-```
+# 图元
+设计了五种图元，各图元有包括颜色、大小、绘制方式等属性。
+----------------------------------------------
+| 图元（Geomtry） |	属性（Attributes）       |
+----------------------------------------------
+| 点（Points）	  | uchar color[4];          |
+|                 | int point_size{ 1 };     |
+----------------------------------------------
+| 线段（Lines）	  | uchar color[4];          |
+|                 | int    line_width{ 1 };  |
+|                 | bool  dash{ false };     |
+----------------------------------------------
+| 三角形          | uchar color[4];          |
+|（Triangles）	  | FaceMode mode;           |
+----------------------------------------------
+| 多线段          | uchar color[4];          |
+|（Polyline）     | int   line_width{ 1 };   |
+|                 | bool  dash{ false };     |
+----------------------------------------------
+| 多线段          | uchar color[4];          |        
+|（Polyline）	  | int   line_width{ 1 };   |
+|                 | bool  dash{ false };     |
+----------------------------------------------
+| 多边形          | uchar color[4];          |
+|（Polygon）	  | FaceMode mode;           |
+----------------------------------------------
+
+FaceMode 包括点、线框模型、填充
+
+# 节点
+一个节点可以包含0~N个图元和0~n个子节点。
+
+~
+    struct Transformation
+    {
+        Eigen::Quaterniond R{ 1, 0, 0, 0 };
+        Eigen::Vector3d t{ 0, 0, 0 };
+    };
+
+    struct GraphicsNode
+    {
+        std::string  name;
+        Transformation T;  //pose in its parent node's coordination system.
+        std::vector<GeometryBasePtr> geomtries;
+
+        std::vector<std::shared_ptr<GraphicsNode> > children;
+    };
+~
